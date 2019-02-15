@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TTS</title>
+    <link rel="shortcut icon" href="images/TTS.jpg">
+    <!-- BOOTSTRAP STYLES-->
+    <link href="assets/css/bootstrap.css" rel="stylesheet" />
+    <!-- FONTAWESOME STYLES-->
+    <link href="assets/css/font-awesome.css" rel="stylesheet" />
+    <!--CUSTOM BASIC STYLES-->
+    <link href="assets/css/basic.css" rel="stylesheet" />
+    <!--CUSTOM MAIN STYLES-->
+    <link href="assets/css/custom.css" rel="stylesheet" />
+    <!-- GOOGLE FONTS-->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+</head>
+<?php
+if(isset($_GET['invoice']) && !empty($_GET['invoice'])) 
+$invoice = $_GET['invoice'];	
+?>
+
+
+<body>
+    <div id="wrapper">
+        <nav class="navbar navbar-default navbar-cls-top " role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.php">TECHSAC</a>
+            </div>
+
+            <div class="header-right">
+
+              
+                <a href="../index.php" class="btn btn-danger" title="Logout"><i class="fa fa-exclamation-circle fa-2x"></i></a>
+
+
+            </div>
+        </nav>
+        <!-- /. NAV TOP  -->
+        <nav class="navbar-default navbar-side" role="navigation">
+            <div class="sidebar-collapse">
+                <ul class="nav" id="main-menu">
+                    <li>
+                        <div class="user-img-div">
+                            <img src="TTS.jpg" class="img-thumbnail" />
+
+                            <div>
+                                Annapoorna layout,</div>
+                            
+                                   <div> Coimbatore. 
+                            </div>
+                        </div>
+
+                    </li>
+
+
+                    <li>
+                        <a href="index.php"><i class="fa fa-dashboard "></i>Dashboard</a>
+                    </li>
+                    <li>
+                        <a href="#"  class="active-menu-top"><i class="fa fa-desktop "></i>Master <span class="fa arrow"></span></a>
+                         <ul class="nav nav-second-level collapse in">
+                            <li>
+                                <a href="customer.php"><i class="fa fa-toggle-on"></i>Customer</a>
+                            </li>
+                            <li>
+                                <a href="supplier.php"><i class="fa fa-bell "></i>Suppliers</a>
+                            </li>
+                             <li>
+                                <a href="products.php"><i class="fa fa-circle-o "></i>Item</a>
+                            </li>
+                             <li>
+                                <a href="Tax.php"><i class="fa fa-code "></i>Tax</a>
+                            </li>
+                             <li>
+                                <a href="cat.php"><i class="fa fa-bug "></i>Store group</a>
+                            </li>
+                             <!--<li>
+                                <a href="wizard.html"><i class="fa fa-bug "></i>Wizard</a>
+                            </li>
+                             <li>
+                                <a href="typography.html"><i class="fa fa-edit "></i>Typography</a>
+                            </li>
+                             <li>
+                                <a href="grid.html"><i class="fa fa-eyedropper "></i>Grid</a>
+                            </li>-->
+                            
+                           
+                        </ul>
+                    </li>
+                     <li>
+                        <a href="#"><i class="fa fa-yelp "></i>Invoice<span class="fa arrow"></span></a>
+                         <ul class="nav nav-second-level">
+                            <li>
+                                <a href="sales.php"><i class="fa fa-coffee"></i>Invoice Creation</a>
+                            </li>
+                            <li>
+                                <!--<a href="editinvoice.php"><i class="fa fa-flash "></i>Invoice View & Edit</a>-->
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-bicycle "></i>sales <span class="fa arrow"></span></a>
+                         <ul class="nav nav-second-level">
+                           
+                             <li>
+                                <a href="salesreport.php"><i class="fa fa-desktop "></i>Sales report </a>
+                            </li>
+                        </ul>
+                    </li>
+                    
+            </div>
+
+        </nav>
+        <!-- /. NAV SIDE  -->
+        <div id="page-wrapper">
+            <div id="page-inner">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h1 class="page-head-line"><i class="icon-money"></i> Invoice creation</h1>
+
+                    </div>
+                </div>
+<?php include 'header.php'; ?>
+<?php include('navfixed.php');?>
+    <div class="container-fluid">
+      <div class="row-fluid">
+	   	
+			<ul class="breadcrumb">
+			</ul>
+<div style="margin-top: -19px; margin-bottom: 21px;">
+<a  href="index.php"><button class="btn btn-default btn-large" style="float: none;"><i class="icon icon-circle-arrow-left icon-large"></i> Back</button></a>
+</div>
+	
+<form action="incoming.php" method="post" >
+<tr>
+CustomerName:<select name="customer_name" id='customer_name'  /required>
+	<option value="emp" selected>Choose the Customer Name</option>
+    <?php
+	include('../connect.php');
+	$result = $db->prepare("SELECT * FROM customer");
+	$result->execute();?>
+	
+
+<?php 
+        for($i=0; $row = $result->fetch(); $i++){ ?>
+         <option name><?php echo $row['customer_name']; ?> </option>
+<?php 
+                                }
+                        ?>
+
+</select>
+   <?php
+	//printf("invoice is in sales.php %s",$invoice);
+	?>
+    <div class="c">
+	Invoice No:<input type="text" name="invoice" style="right" value="<?php echo $invoice ?>" />Date:<input type="date" name="date1" value=""><br></div>
+	ItemName:<select name="product_code" id='product_code'  /required>
+	<option value="emp" selected>Choose the Item Name</option>
+    <?php
+	include('../connect.php');
+	$result = $db->prepare("SELECT * FROM products");
+	$result->execute();?>
+<?php 
+for($i=0; $row = $result->fetch(); $i++){        ?> 
+<option name><?php echo $row['product_code']; ?> </option>
+<?php 
+                                }
+                        ?>
+
+
+</select>
+Tax:<select name="tax" /required>
+<option></option>
+	<?php
+	include('../connect.php');
+	$result = $db->prepare("SELECT * FROM tax");
+	$result->execute();
+	for($i=0; $row = $result->fetch(); $i++){
+	?>
+	    <option name><?php echo $row['tax']; ?></option>
+	<?php
+				}
+			?>
+</select>
+Umo:<select name="unit" /required>
+<option></option>
+	<?php
+	include('../connect.php');
+	$result = $db->prepare("SELECT * FROM umo");
+		$result->bindParam(':userid', $res);
+		$result->execute();
+		for($i=0; $row = $result->fetch(); $i++){
+	?>
+	    <option name><?php echo $row['unit']; ?></option>
+	<?php
+				}
+			?>
+</select>
+<br>
+Tax Type:<select name="tax_type">
+<option value="CGST,SGST">CGST,SGST</option>
+<option value="IGST">IGST</option>
+</select>
+
+<br>
+
+
+<style>
+div.c {
+    text-align: right;
+} 
+</style>
+
+Qty:<input type="number" name="qty" value="1" min="1" placeholder="Qty" autocomplete="off" style="width: 68px; height:30px; padding-top:6px; padding-bottom: 4px; margin-right: 4px; font-size:15px;" / required>
+
+	<?php 
+	
+	if(isset($_POST['$date1']) && !empty($_POST['$date1'])) 
+				
+				{
+					$date1 = $_POST['date1'];	
+				}else
+				{
+				$date1 = date("Y-m-d");	
+				//$date1 = $_POST['date1'];	
+				}
+	$date1 = strtotime($date1);
+	$date1 = date("Y-m-d",$date1);
+	?>
+	
+	
+	<input type="hidden" name="date" value="<?php echo $date1; ?>" />
+	<input type="hidden" name="invoice" value="<?php echo $invoice; ?>"  />
+	
+	<Button type="submit" class="btn btn-info" style="width: 123px; height:35px; margin-top:-5px;" /><i class="icon-plus-sign icon-large"></i> Add</button>
+	
+	
+</form>
+
+
+
+
+<!--
+<form action="/Invoice_new.php">
+  IS: <input type="radio" id="myRadio" name="test">
+  <form action="">
+  WS: <input type="radio" id="myRadio" name="test">
+  
+</form>
+-->
+
+<table class="table table-bordered" id="resultTable" data-responsive="table">
+	<thead>
+		<tr>
+			<th> HSN </th>
+			<th> Store group </th>
+			<th> Item </th>
+			<th> Price </th>
+			<th> Qty </th>
+			<th> Amount</th>
+			<th> GST %</th>
+			<th> Total </th>
+			<th> Action </th>
+		</tr>
+	</thead>
+	<tbody>
+		
+			<?php
+			
+				$id=$invoice;
+				//printf("Count of id in sales.php after incoming.php is %s",$id);
+				include('../connect.php');
+				$result = $db->prepare("SELECT * FROM sales_order WHERE invoice= :userid");
+				$result->bindParam(':userid', $id);
+				$result->execute();
+				for($i=1; $row = $result->fetch(); $i++){
+			?>
+			<tr class="record">
+			<td><?php echo $row['product_code']; ?></td>
+			<td><?php echo $row['gen_name']; ?></td>
+			<td><?php echo $row['product_name']; ?></td>
+			<td><?php echo $row['price'];?></td>
+			<td><?php echo $row['qty']; ?></td>  
+			<td>
+			    Rs.<?php echo $row['amount'];?> 
+			    
+		    </td>
+			<td>
+				
+			 <?php echo $row['tax_amount'];?>
+			<br>@
+			<?php 
+			echo formatMoney($row['tax'], true,$id);
+			?>%
+		    </td>	
+			<td>
+			<?php
+			$profit=$row['total'];
+			echo formatMoney($profit, true,$id);
+			?>
+			</td>
+
+			<td width="90"><a href="delete.php?id=<?php echo $row['transaction_id']; ?>&invoice=<?php echo $_GET['invoice'];?>"><button class="btn btn-mini btn-warning"><i class="icon icon-remove"></i> Cancel </button></a></td>
+			</tr>
+			<?php
+				}
+			?>
+			<tr>
+			<th>  </th>
+			<th>  </th>
+			<th>  </th>
+			<th>  </th>
+			<th>  </th>
+			<th>  </th>
+			<td> </td>
+			<td> Total Amount: </td>
+			<th>  </th>
+		</tr>
+			<tr>
+				<th colspan="6"><strong style="font-size: 12px; color: #222222;">Total:</strong></th>
+				<td> </td>
+				<td colspan="1"><strong style="font-size: 12px; color: #222222;">
+				<?php
+				function formatMoney($number, $fractional=false,$invoice) {
+					if ($fractional) {
+						$number = sprintf('%.2f', $number);
+						
+					}
+					while (true) {
+						$replaced = preg_replace('/(-?\d+)(\d\d\d)/', '$1,$2', $number);
+						if ($replaced != $number) {
+							$number = $replaced;
+						} else {
+							break;
+						} 
+					}
+					return $number;
+				}
+				$sdsd=$invoice;
+				$resultas = $db->prepare("SELECT sum(total) FROM sales_order WHERE invoice= :a");
+				$resultas->bindParam(':a', $id);
+				$resultas->execute();
+				for($i=0; $rowas = $resultas->fetch(); $i++){
+					$fgfg=$rowas['sum(total)'];
+					echo formatMoney($fgfg, true,$invoice);
+					}
+				?>
+				</strong></td>
+				
+				<th></th>
+			</tr>
+			
+		
+	</tbody>
+</table><br>
+
+	<?php 
+//calculate total amount, total tax, grand_total
+//column name[s] are total_amount_invoice, total_tax_invoice,total_grand_invoice
+
+				//printf("Invoice is %s",$invoice);
+				$total_amount = $db->prepare("SELECT sum(amount) FROM sales_order WHERE invoice= :a");
+				$total_amount->bindParam(':a', $invoice);
+				$total_amount->execute();
+				for($i=0; $rowas = $total_amount->fetch(); $i++){
+					$total_amount_value=$rowas['sum(amount)'];
+					formatMoney($total_amount_value, true,$invoice);
+				}
+				//printf("Total Amount for this invoice is %s",$total_amount_value);
+				
+				//Calculating Total_Tax
+				$total_tax = $db->prepare("SELECT sum(tax_amount) FROM sales_order WHERE invoice= :a");
+				$total_tax->bindParam(':a', $invoice);
+				$total_tax->execute();
+				for($i=0; $rowas = $total_tax->fetch(); $i++){
+					$total_tax_value=$rowas['sum(tax_amount)'];
+					formatMoney($total_tax_value, true,$invoice);
+				}
+				//printf("Total Tax for this invoice is %s",$total_tax_value);
+
+				//Calculating Total_Grand_Invoice
+				$total_grand = $db->prepare("SELECT sum(total) FROM sales_order WHERE invoice= :a");
+				$total_grand->bindParam(':a', $invoice);
+				$total_grand->execute();
+				for($i=0; $rowas = $total_grand->fetch(); $i++){
+					$total_grand_value=$rowas['sum(total)'];
+					formatMoney($total_grand_value, true,$invoice);
+				}
+				//printf("Total Grand  for this invoice is %s",$total_grand_value);
+				
+				//Insert into sales_order table
+				$stmt = $db->prepare("UPDATE sales_order SET total_amount_invoice=:a WHERE invoice=:b");
+				$stmt->execute(array(':a'=>$total_amount_value,':b'=>$invoice));
+				$status = $stmt->execute();
+				
+				$stmt = $db->prepare("UPDATE sales_order SET total_tax_invoice=:a WHERE invoice=:b");
+				$stmt->execute(array(':a'=>$total_tax_value,':b'=>$invoice));
+				$status = $stmt->execute();
+				
+				$stmt = $db->prepare("UPDATE sales_order SET total_grand_invoice=:a WHERE invoice=:b");
+				$stmt->execute(array(':a'=>$total_grand_value,':b'=>$invoice));
+				$status = $stmt->execute();
+				
+				
+				
+	?>
+
+<?php
+//Find whether this invoice belongs to SGST or IGST
+$mysqli = new mysqli("localhost", "root", "Mer123tv#", "sales2");
+if ($stmt = $mysqli->prepare("SELECT tax_type FROM sales_order WHERE invoice like ?")) {
+
+    /* bind parameters for markers */
+    $stmt->bind_param('s', $invoice);
+
+    /* execute query */
+    $stmt->execute();
+
+    /* bind result variables */
+    $stmt->bind_result($tax_type);
+
+    /* fetch value */
+    $stmt->fetch();
+	
+    /* close statement */
+    $stmt->close();
+}
+if($tax_type == "CGST,SGST")
+	{
+	$invoice_File_Name = "Invoice_SGST.php";
+	}
+	else
+	{
+		$invoice_File_Name = "Invoice_IGST.php";
+	}
+?>	
+
+
+<a href="<?php echo $invoice_File_Name?>?invoice=<?php echo $invoice?>" target="_blank">
+<button class="btn btn-success btn-large btn-block"><i class="icon icon-save icon-large"></i> Save PDF</button>
+</a>
+<!--<input type="button" onclick="window.location=''" class="Redirect" value="Click Here To Redirect"/><-->
+
+<div class="clearfix"></div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+
+<div id="footer-sec">
+        &copy; 2014 TECHSAC TECHNOLOGY SOLUTIONS | Design By : <a href="http://www.info@techsac.in/" target="_blank">info@techsac.in</a>
+    </div>
+    <!-- /. FOOTER  -->
+    <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
+    <!-- JQUERY SCRIPTS -->
+    <script src="assets/js/jquery-1.10.2.js"></script>
+    <!-- BOOTSTRAP SCRIPTS -->
+    <script src="assets/js/bootstrap.js"></script>
+    <!-- METISMENU SCRIPTS -->
+    <script src="assets/js/jquery.metisMenu.js"></script>
+    <!-- CUSTOM SCRIPTS -->
+    <script src="assets/js/custom.js"></script>
+
+
+</body>
+</html>
