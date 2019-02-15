@@ -1,0 +1,112 @@
+yum installation for linux from cd/dvd
+
+1.mount the cd/dvd in the /var/iso/image
+mount /dev/dvdwriter /mnt
+cd /mnt
+cp -rf  * /var/iso/image
+umount /mnt
+
+2.create dir - /var/iso/image/Server & /var/iso/image/VT
+cd /var/iso/image/Server
+
+3.Install yum & createrepo packages
+#rpm -ivh yum-* --nodeps --force
+#rpm -ivh createrepo-* --nodeps --force
+
+4.Back to old directory
+#/var/iso/image
+
+5. Create repository of server
+#createrepo -v server
+
+6. Create repository for VT
+#createrepo -v VT
+
+7.Create errata repository
+createrepo -v errata
+
+8. delete two hidden directory
+rm -rf /var/iso/image/Server/.olddata
+rm -rf /var/iso/image/.olddata
+
+9.copy sample hostname repo file in /etc/yum.repos.d
+cd /etc/yum.repos.d
+cp -rf rhel-debuginfo.repo server.example.com.repo
+
+10. edit the hostname repo
+[Server]
+name=Server.example.com
+baseurl=file:///var/iso/image/Server
+gpgcheck=0
+
+[VT]
+name=Server.example.com
+baseurl=file:///var/iso/image/VT
+gpgchek=0
+
+11. yum clean all. Installation of yum is completed.
+
+
+
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Another way of installation
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Step 1: Download/Transfer CentOS DVD ISO
+wget http://mirror.lihnidos.org/CentOS/6.4/isos/i386/CentOS-6.4-i386-LiveDVD.iso
+
+Step 2: Mount CentOS DVD ISO
+mount -o loop /path/to/iso /mnt
+
+Step 3: Create YUM Repository Configuration file
+/etc/yum.repos.d/centosdvdiso.repo
+
+[centosdvdiso]
+name=CentOS DVD ISO
+baseurl=file:///mnt
+enabled=1
+gpgcheck=1
+gpgkey=file:///mnt/RPM-GPG-KEY-CentOS-6
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Custom YUM Repository
+
+Step 1: Install "createrepo"
+yum install createrepo
+
+
+Step 2: Create Repository directory
+mkdir /repository1
+
+
+Step 3: Put RPM files to Repository directory
+
+wget http://mirror.lihnidos.org/CentOS/6/os/i386/Packages/NetworkManager-0.8.1-43.el6.i686.rpm
+
+If RPM files are already present on our VPS, we need to Copy or Move these files to the newly created directory from "Step 2". We can move RPM files with the following command from console (please change /path/to/rpm and /repository1 accordingly):
+mv /path/to/rpm /repository1
+
+Step 4: Run "createrepo"
+
+createrepo /repository1
+
+
+Step 5: Create YUM Repository Configuration file
+/etc/yum.repos.d/custom.repo
+[customrepo]
+name=Custom Repository
+baseurl=file:///repository1/
+enabled=1
+gpgcheck=0
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Installation using tar file
+
+1.Download the yum version of your choice: wget http://linux.duke.edu/projects/yum/download/2.0/yum-2.0.7.tar.gz
+2.Untar the package: tar xvzf yum-2.0.7.tar.gz
+3.run the configuration file: ./configure
+4.make configuration: make
+5.make installation: make install

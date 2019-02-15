@@ -1,0 +1,41 @@
+How to install HTTPD Apache web server:-
+
+To Install using YUM package:-
+#yum install httpd
+or
+#up2date httpd
+
+Install using RPM package:-
+
+Download the required tar file - either httpd 2.2 or httpd 2.4 version which are currently available in the Apache site
+lets download httpd-2.2.31.tar.gz in the /opt drive
+
+Extract the gz file
+     [Example.com]# tar -xvzf httpd-2.2.31.tar.gz   
+     [Example.com]# cd httpd-2.2.31
+Configure
+    [Example.com]#./configure --prefix=PREFIX [ Include what ever the configuration or specs needed] 
+                              for example --enable-rewrite=shared --enable-speling=shared
+Compile
+    [Example.com]# make
+Install
+   [Example.com]# make install
+
+Start the Apache:-
+ [Example.com]# /etc/init.d/httpd start
+or 
+ [Example.com]#apachetl -k start
+
+To Stop :-
+[Example.com]# /etc/init.d/httpd stop
+or 
+ [Example.com]#apachetl -k stop
+
+To configure as running even after boot
+[Example.com]# chkconfig httpd on
+
+To check whether it is running or not:-
+[Example.com]# netstat -tulpn | grep :80
+
+Further configuration:-
+Check the Apache website(url) for detailed configuration about the httpd.conf as per your requirements

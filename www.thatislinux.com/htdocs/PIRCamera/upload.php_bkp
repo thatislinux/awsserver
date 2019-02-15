@@ -1,0 +1,27 @@
+<?php
+$target_dir = "/var/www/www.thatislinux.com/htdocs/PIRCamera/";
+
+for ($x = 12; $x >= 2; $x--) {
+    copy($target_dir."a".($x-1).".jpg", $target_dir."a".$x.".jpg"); 
+}
+copy($target_dir."a1t.jpg", $target_dir."a1.jpg");
+
+$fileName = $_FILES['fileToUpload']['name'];
+$tmpName  = $_FILES['fileToUpload']['tmp_name'];
+$LightLevel =$_REQUEST['LightLevel'];
+$im = imagecreatefromjpeg($tmpName);
+
+$date = new DateTime();
+$ds= $date->format('Y-m-d g:i:s A');
+
+$PEN_color1 = imagecolorallocate($im, 255, 255, 255);
+$PEN_color2 = imagecolorallocate($im, 0, 0, 0);
+
+imagefilledrectangle ( $im , 1 , 460 , 250, 480 , $PEN_color2 );
+imagestring($im, 2, 10, 463,  $ds." LightReading=".$LightLevel , $PEN_color1);
+
+imagejpeg($im, $target_dir."a1t.jpg", 95); 
+imagedestroy($im);
+echo("Done");
+	
+?>	

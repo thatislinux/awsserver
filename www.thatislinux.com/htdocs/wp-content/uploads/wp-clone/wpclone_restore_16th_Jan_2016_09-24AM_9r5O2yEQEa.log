@@ -1,0 +1,21 @@
+Saturday, 16-Jan-2016 09:24:00 - restore started
+Saturday, 16-Jan-2016 09:24:00 - wp version     : 4.3.2
+Saturday, 16-Jan-2016 09:24:00 - php version    : 5.3.29
+Saturday, 16-Jan-2016 09:24:00 - mysql version  : 5.5.46
+Saturday, 16-Jan-2016 09:24:00 - memory limit   : 1024M
+Saturday, 16-Jan-2016 09:24:00 - execution time : 600
+Saturday, 16-Jan-2016 09:24:00 - mysql timeout  : 600
+Saturday, 16-Jan-2016 09:24:00 - socket timeout : 600
+Saturday, 16-Jan-2016 09:24:00 - file exists in the backup folder, filesize - 13.01 MB
+Saturday, 16-Jan-2016 09:24:00 - extracting database using ziparchive
+Saturday, 16-Jan-2016 09:24:00 - database import started
+Saturday, 16-Jan-2016 09:24:00 - updating mysql query with current site's url - new query : "INSERT INTO wp_options VALUES("1","siteurl","http://www.thatislinux.com","yes")"
+Saturday, 16-Jan-2016 09:24:03 - mysql query failed. error : 1065 Query was empty - query : ""
+Saturday, 16-Jan-2016 09:24:03 - database import finished
+Saturday, 16-Jan-2016 09:24:03 - search and replace started
+Saturday, 16-Jan-2016 09:24:03 - there are 18 tables to scan
+Saturday, 16-Jan-2016 09:24:03 - search and replace finished
+Saturday, 16-Jan-2016 09:24:03 - extracting archive using ziparchive
+Saturday, 16-Jan-2016 09:24:03 - copying files..
+Saturday, 16-Jan-2016 09:24:04 - deleting temp directory..
+Saturday, 16-Jan-2016 09:24:04 - restore finished
